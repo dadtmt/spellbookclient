@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Spellbook } from './types';
+import AppContext from './AppContext';
 
 type AllSpellbooksData = {
   allSpellbooks: Spellbook[]
@@ -21,6 +22,7 @@ query GetAllSpellbooks {
 
 function SpellBooks() {
   const { loading, error, data } = useQuery<AllSpellbooksData>(ALL_SPELLBOOKS);
+  const [appState, dispatch] = useContext(AppContext)
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
@@ -28,7 +30,10 @@ function SpellBooks() {
   return <div>{data.allSpellbooks.map(({ id, name }) => (
     <div key={id}>
       <p>
-        {name}
+        {name} 
+        <button onClick={()=> dispatch && dispatch({type: "SELECT_SPELLBOOK", id })} >  
+          { appState?.selectedBookId !== id ? "Selectioner" : "Déselectioner" }
+        </button>
       </p>
 
     </div>
