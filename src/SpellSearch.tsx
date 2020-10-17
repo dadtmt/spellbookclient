@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Spell } from './types';
+import Highlighter from "react-highlight-words";
 
 type GetSpellsData = {
   getSpells: Spell[]
@@ -21,22 +22,32 @@ query GetSpells($name: String!) {
 }
 `
 
-type SpellSearchResults = {
+type SpellSearchResultsProps = {
   search: string
 }
 
-function SpellSearchResults({ search }:SpellSearchResults) {
+type  BoldSearchResultProps = {
+  name: string
+  search: string
+}
+
+function SpellSearchResults({ search }:SpellSearchResultsProps) {
   const { loading, error, data } = useQuery<GetSpellsData, GetSpellsVars>(
     GET_SPELLS,
     { variables: { name: search } }
   );
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
-  if (!data) return <p>No Spells... :(</p>;
+  if (!data || data?.getSpells.length === 0) return <p>No Spells... :(</p>;
   return <div>{data.getSpells.map(({ id, name }) => (
     <div key={id}>
       <p>
-        {name}
+        <Highlighter 
+          highlightClassName="YourHighlightClass"
+          searchWords={[search]}
+          autoEscape={true}
+          textToHighlight= { name }
+        />
       </p>
     </div>
   ))}</div>
