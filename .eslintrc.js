@@ -29,6 +29,7 @@ module.exports = {
       project: './tsconfig.json',
     },
     rules: {
+      "@typescript-eslint/explicit-module-boundary-types": "off",
       'linebreak-style': 'off',
       'prettier/prettier': [
         'error',
