@@ -1,24 +1,6 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-
-type Spell = {
-  id: number,
-  name: string;
-  description: string;
-  castingTime: string;
-  components: string;
-  range: string;
-  duration: string;
-  target: string;
-  savingThrow: string;
-  spellResistance: string;
-};
-
-type Spellbook = {
-  id: string;
-  name: string;
-  spells: Spell[];
-};
+import { Spellbook } from './types';
 
 type AllSpellbooksData = {
   allSpellbooks: Spellbook[]
