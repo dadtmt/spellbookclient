@@ -6,21 +6,23 @@ import SpellSearch from './SpellSearch';
 import { AppState, Action } from './types';
 
 const initialState = {
-  selectedBookId : false
-}
+  selectedBookId: false,
+};
 
-function appReducer (state:AppState, action:Action):AppState {
-  switch(action.type) {
-    case 'SELECT_SPELLBOOK': return {
-      ...state,
-      selectedBookId: !state.selectedBookId && action.id 
-    }
-    default: return state
+function appReducer(state: AppState, action: Action): AppState {
+  switch (action.type) {
+    case 'SELECT_SPELLBOOK':
+      return {
+        ...state,
+        selectedBookId: !state.selectedBookId && action.id,
+      };
+    default:
+      return state;
   }
 }
 
 function App() {
-  const [state, dispatch] = useReducer(appReducer, initialState)
+  const [state, dispatch] = useReducer(appReducer, initialState);
   return (
     <div className="App">
       <AppContext.Provider value={[state, dispatch]}>
