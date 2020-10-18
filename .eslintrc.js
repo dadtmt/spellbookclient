@@ -92,8 +92,8 @@ module.exports = {
         
         type Mutation {
           addSpellbook(input: InputSpellbook!): Spellbook!
-          addSpellToBook(input: InputSpellToBook): Spell!
-        }
+          addSpellToBook(input: InputSpellToBook): Spellbook!
+        }        
         `,
   
         // tagName is gql by default

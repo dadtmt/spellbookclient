@@ -1,19 +1,26 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import './App.css';
+import { gql, useQuery } from '@apollo/client';
 import AppContext from './AppContext';
 import AddSpellbook from './AddSpellbook';
-import Spellbooks from './Spellbooks';
+import SelectSpellbook from './SelectSpellbook';
 import SpellSearch from './SpellSearch';
-import { AppState, Action } from './types';
-import Spellbook from './Spellbook';
+import { AppState, Action, Spellbook } from './types';
+import ViewSpellbook from './Spellbook';
 
-const initialState = {
+const initialState: AppState = {
   selectedSpellbook: null,
   spellbookView: 'SEE',
+  spellbooks: [],
 };
 
 function appReducer(state: AppState, action: Action): AppState {
   switch (action.type) {
+    case 'FETCHED_ALL_SPELLBOOKS':
+      return {
+        ...state,
+        spellbooks: action.spellbooks,
+      };
     case 'SELECT_SPELLBOOK':
       return {
         ...state,
@@ -31,8 +38,39 @@ function appReducer(state: AppState, action: Action): AppState {
   }
 }
 
+type AllSpellbooksData = {
+  allSpellbooks: Spellbook[];
+};
+
+const ALL_SPELLBOOKS = gql`
+  query GetAllSpellbooks {
+    allSpellbooks {
+      id
+      name
+      spells {
+        id
+        name
+        description
+      }
+    }
+  }
+`;
+
 function App() {
   const [state, dispatch] = useReducer(appReducer, initialState);
+  const { loading, error, data } = useQuery<AllSpellbooksData>(
+    ALL_SPELLBOOKS,
+  );
+  useEffect(() => {
+    if (data?.allSpellbooks && dispatch) {
+      dispatch({
+        type: 'FETCHED_ALL_SPELLBOOKS',
+        spellbooks: data.allSpellbooks,
+      });
+    }
+  }, [data, dispatch]);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
   return (
     <div className="App">
       <AppContext.Provider value={[state, dispatch]}>
@@ -43,11 +81,11 @@ function App() {
             {state.spellbookView === 'MODIFY' ? (
               <SpellSearch />
             ) : (
-              <Spellbook />
+              <ViewSpellbook />
             )}
           </>
         ) : (
-          <Spellbooks />
+          <SelectSpellbook />
         )}
       </AppContext.Provider>
     </div>

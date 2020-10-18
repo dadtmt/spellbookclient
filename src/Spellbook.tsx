@@ -8,13 +8,17 @@ function Spellbook() {
     <div>
       <h2>Liste des sorts:</h2>
       <div>
-        {state?.selectedSpellbook?.spells.map(
-          ({ id, name, description }) => (
-            <div key={id}>
-              <h3>{name}</h3>
-              <p>{description}</p>
-            </div>
-          ),
+        {state?.selectedSpellbook?.spells ? (
+          state?.selectedSpellbook?.spells.map(
+            ({ id, name, description }) => (
+              <div key={id}>
+                <h3>{name}</h3>
+                <p>{description}</p>
+              </div>
+            ),
+          )
+        ) : (
+          <p>Pas de sorts dans ce grimoire</p>
         )}
       </div>
     </div>

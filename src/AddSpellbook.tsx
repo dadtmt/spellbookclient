@@ -38,9 +38,9 @@ function AddSpellbook() {
   return (
     <div>
       {error ? <p>Error: {error.message}</p> : null}
-      {data && data.addSpellbook.id ? (
-        <p>Grimoire {data.addSpellbook.name} Saved!</p>
-      ) : null}
+      {data && data.addSpellbook.id && (
+        <p>Grimoire {data.addSpellbook.name} créé!</p>
+      )}
       {state?.selectedSpellbook ? (
         <div>
           <p>Grimoire {state.selectedSpellbook.name} sélectionné</p>
