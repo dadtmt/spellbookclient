@@ -2,9 +2,10 @@ import React, { useReducer } from 'react';
 import './App.css';
 import AppContext from './AppContext';
 import AddSpellbook from './AddSpellbook';
-import SpellBooks from './SpellBooks';
+import Spellbooks from './Spellbooks';
 import SpellSearch from './SpellSearch';
 import { AppState, Action } from './types';
+import Spellbook from './Spellbook';
 
 const initialState = {
   selectedSpellbook: null,
@@ -42,11 +43,11 @@ function App() {
             {state.spellbookView === 'MODIFY' ? (
               <SpellSearch />
             ) : (
-              <div>TODO : list spellbook spells</div>
+              <Spellbook />
             )}
           </>
         ) : (
-          <SpellBooks />
+          <Spellbooks />
         )}
       </AppContext.Provider>
     </div>

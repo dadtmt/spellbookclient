@@ -20,7 +20,7 @@ const ALL_SPELLBOOKS = gql`
   }
 `;
 
-function SpellBooks() {
+function Spellbooks() {
   const { loading, error, data } = useQuery<AllSpellbooksData>(
     ALL_SPELLBOOKS,
   );
@@ -58,4 +58,4 @@ function SpellBooks() {
   );
 }
 
-export default SpellBooks;
+export default Spellbooks;
