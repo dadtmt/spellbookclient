@@ -4,7 +4,7 @@ export type AppState = {
 
 export type Action = {
   type: 'SELECT_SPELLBOOK';
-  spellbook: Spellbook;
+  spellbook: Spellbook | null;
 };
 
 export type Spell = {

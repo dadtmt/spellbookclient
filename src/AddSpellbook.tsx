@@ -40,22 +40,33 @@ function AddSpellbook() {
       {data && data.addSpellbook.id ? (
         <p>Grimoire {data.addSpellbook.name} Saved!</p>
       ) : null}
-
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          addSpellbook();
-        }}
-      >
-        <input
-          id="name"
-          type="text"
-          placeholder="Nom du grimoire"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <button type="submit">Créer</button>
-      </form>
+      {state?.selectedSpellbook ? (
+        <button
+          type="button"
+          onClick={() =>
+            dispatch &&
+            dispatch({ type: 'SELECT_SPELLBOOK', spellbook: null })
+          }
+        >
+          Nouveau grimoire
+        </button>
+      ) : (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            addSpellbook();
+          }}
+        >
+          <input
+            id="name"
+            type="text"
+            placeholder="Nom du grimoire"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <button type="submit">Créer</button>
+        </form>
+      )}
     </div>
   );
 }
