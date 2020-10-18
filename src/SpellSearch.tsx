@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Highlighter from 'react-highlight-words';
 
 import { useQuery, gql } from '@apollo/client';
 import { Spell } from './types';
+import SpellSelector from './SpellSelector';
 
 type GetSpellsData = {
   getSpells: Spell[];
@@ -23,7 +23,7 @@ const GET_SPELLS = gql`
   }
 `;
 
-type SpellSearchResultsProps = {
+export type SpellSearchResultsProps = {
   search: string;
 };
 
@@ -39,18 +39,8 @@ function SpellSearchResults({ search }: SpellSearchResultsProps) {
   return (
     <div>
       <h2>Ajouter un sort:</h2>
-      {data.getSpells.map(({ id, name }) => (
-        <div key={id}>
-          <p>
-            <Highlighter
-              highlightClassName="YourHighlightClass"
-              searchWords={[search]}
-              autoEscape
-              textToHighlight={name}
-            />
-            <button type="button">Ajouter</button>
-          </p>
-        </div>
+      {data.getSpells.map((spell) => (
+        <SpellSelector key={spell.id} spell={spell} search={search} />
       ))}
     </div>
   );
