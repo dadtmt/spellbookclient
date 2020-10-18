@@ -2,6 +2,7 @@ import { gql, useMutation } from '@apollo/client';
 import React, { useContext, useEffect } from 'react';
 import Highlighter from 'react-highlight-words';
 import AppContext from './AppContext';
+import useRemoveSpellFromBook from './hooks/useRemoveSpellFromBook';
 
 import { Spell, Spellbook } from './types';
 
@@ -28,11 +29,16 @@ type AddSpellToBookVars = {
 
 type SpellSelectorProps = { search: string; spell: Spell };
 
-function SpellSelector({
-  search,
-  spell: { id, name },
-}: SpellSelectorProps) {
+const isInSpellbook = (
+  spell: Spell,
+  spellbook: Spellbook | null | undefined,
+) =>
+  spellbook &&
+  spellbook.spells.find((spellInBook) => spell.id === spellInBook.id);
+
+function SpellSelector({ search, spell }: SpellSelectorProps) {
   const [state, dispatch] = useContext(AppContext);
+  const { id, name } = spell;
   const [addSpellToBook, { error, data }] = useMutation<
     { addSpellToBook: Spellbook },
     AddSpellToBookVars
@@ -44,6 +50,12 @@ function SpellSelector({
       },
     },
   });
+
+  const [
+    removeSpellFromBook,
+    { data: dataRemove },
+  ] = useRemoveSpellFromBook(state?.selectedSpellbook, spell);
+
   useEffect(() => {
     if (data?.addSpellToBook && dispatch)
       dispatch({
@@ -52,6 +64,16 @@ function SpellSelector({
         spellbookView: 'MODIFY',
       });
   }, [data, dispatch]);
+
+  useEffect(() => {
+    if (dataRemove?.removeSpellFromBook && dispatch)
+      dispatch({
+        type: 'SELECT_SPELLBOOK',
+        spellbook: dataRemove.removeSpellFromBook,
+        spellbookView: 'MODIFY',
+      });
+  }, [dataRemove, dispatch]);
+
   return (
     <div key={id}>
       {error ? <p>Error: {error.message}</p> : null}
@@ -65,9 +87,15 @@ function SpellSelector({
           autoEscape
           textToHighlight={name}
         />
-        <button type="button" onClick={() => addSpellToBook()}>
-          Ajouter
-        </button>
+        {isInSpellbook(spell, state?.selectedSpellbook) ? (
+          <button type="button" onClick={() => removeSpellFromBook()}>
+            Retirer
+          </button>
+        ) : (
+          <button type="button" onClick={() => addSpellToBook()}>
+            Ajouter
+          </button>
+        )}
       </p>
     </div>
   );
