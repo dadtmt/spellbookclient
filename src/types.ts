@@ -1,11 +1,15 @@
 export type AppState = {
   selectedSpellbook: Spellbook | null;
+  spellbookView: string;
 };
 
-export type Action = {
-  type: 'SELECT_SPELLBOOK';
-  spellbook: Spellbook | null;
-};
+export type Action =
+  | {
+      type: 'SELECT_SPELLBOOK';
+      spellbook: Spellbook | null;
+      spellbookView: 'SEE' | 'MODIFY';
+    }
+  | { type: 'CHANGE_VIEW' };
 
 export type Spell = {
   id: number;

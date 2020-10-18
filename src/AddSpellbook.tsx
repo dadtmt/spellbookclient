@@ -32,6 +32,7 @@ function AddSpellbook() {
       dispatch({
         type: 'SELECT_SPELLBOOK',
         spellbook: data.addSpellbook,
+        spellbookView: 'MODIFY',
       });
   }, [data, dispatch]);
   return (
@@ -47,10 +48,27 @@ function AddSpellbook() {
             type="button"
             onClick={() =>
               dispatch &&
-              dispatch({ type: 'SELECT_SPELLBOOK', spellbook: null })
+              dispatch({
+                type: 'SELECT_SPELLBOOK',
+                spellbook: null,
+                spellbookView: 'SEE',
+              })
             }
           >
             Changer de grimoire
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              dispatch &&
+              dispatch({
+                type: 'CHANGE_VIEW',
+              })
+            }
+          >
+            {state.spellbookView === 'SEE'
+              ? 'Ajouter des sorts'
+              : 'Voir les sorts'}
           </button>
         </div>
       ) : (

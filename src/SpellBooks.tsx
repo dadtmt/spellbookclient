@@ -39,12 +39,13 @@ function SpellBooks() {
             <p>
               {name}
               <button
-                type="submit"
+                type="button"
                 onClick={() =>
                   dispatch &&
                   dispatch({
                     type: 'SELECT_SPELLBOOK',
                     spellbook: { id, name, spells },
+                    spellbookView: 'SEE',
                   })
                 }
               >

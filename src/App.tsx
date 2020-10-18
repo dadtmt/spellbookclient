@@ -8,6 +8,7 @@ import { AppState, Action } from './types';
 
 const initialState = {
   selectedSpellbook: null,
+  spellbookView: 'SEE',
 };
 
 function appReducer(state: AppState, action: Action): AppState {
@@ -16,6 +17,13 @@ function appReducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         selectedSpellbook: action.spellbook,
+        spellbookView: action.spellbookView,
+      };
+    case 'CHANGE_VIEW':
+      return {
+        ...state,
+        spellbookView:
+          state.spellbookView === 'SEE' ? 'MODIFY' : 'SEE',
       };
     default:
       return state;
@@ -28,7 +36,18 @@ function App() {
     <div className="App">
       <AppContext.Provider value={[state, dispatch]}>
         <AddSpellbook />
-        {state.selectedSpellbook ? <SpellSearch /> : <SpellBooks />}
+
+        {state.selectedSpellbook ? (
+          <>
+            {state.spellbookView === 'MODIFY' ? (
+              <SpellSearch />
+            ) : (
+              <div>TODO : list spellbook spells</div>
+            )}
+          </>
+        ) : (
+          <SpellBooks />
+        )}
       </AppContext.Provider>
     </div>
   );
