@@ -28,8 +28,7 @@ function App() {
     <div className="App">
       <AppContext.Provider value={[state, dispatch]}>
         <AddSpellbook />
-        <SpellSearch />
-        <SpellBooks />
+        {state.selectedSpellbook ? <SpellSearch /> : <SpellBooks />}
       </AppContext.Provider>
     </div>
   );

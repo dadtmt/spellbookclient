@@ -24,35 +24,35 @@ function SpellBooks() {
   const { loading, error, data } = useQuery<AllSpellbooksData>(
     ALL_SPELLBOOKS,
   );
-  const [appState, dispatch] = useContext(AppContext);
+  const [state, dispatch] = useContext(AppContext);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
   if (!data) return <p>No Spellbooks... :(</p>;
   return (
     <div>
-      {data.allSpellbooks.map(({ id, name, spells }) => (
-        <div key={id}>
-          <p>
-            {name}
-            <button
-              type="submit"
-              onClick={() =>
-                dispatch &&
-                dispatch({
-                  type: 'SELECT_SPELLBOOK',
-                  spellbook: { id, name, spells },
-                })
-              }
-            >
-              {appState?.selectedSpellbook &&
-              appState.selectedSpellbook.id !== id
-                ? 'Selectioner'
-                : 'Déselectioner'}
-            </button>
-          </p>
-        </div>
-      ))}
+      <h2>Choisir un grimoire:</h2>
+      {data.allSpellbooks
+        .filter(({ id }) => state?.selectedSpellbook?.id !== id)
+        .map(({ id, name, spells }) => (
+          <div key={id}>
+            <p>
+              {name}
+              <button
+                type="submit"
+                onClick={() =>
+                  dispatch &&
+                  dispatch({
+                    type: 'SELECT_SPELLBOOK',
+                    spellbook: { id, name, spells },
+                  })
+                }
+              >
+                Sélectionner
+              </button>
+            </p>
+          </div>
+        ))}
     </div>
   );
 }

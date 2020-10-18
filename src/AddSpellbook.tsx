@@ -41,15 +41,18 @@ function AddSpellbook() {
         <p>Grimoire {data.addSpellbook.name} Saved!</p>
       ) : null}
       {state?.selectedSpellbook ? (
-        <button
-          type="button"
-          onClick={() =>
-            dispatch &&
-            dispatch({ type: 'SELECT_SPELLBOOK', spellbook: null })
-          }
-        >
-          Nouveau grimoire
-        </button>
+        <div>
+          <p>Grimoire {state.selectedSpellbook.name} sélectionné</p>
+          <button
+            type="button"
+            onClick={() =>
+              dispatch &&
+              dispatch({ type: 'SELECT_SPELLBOOK', spellbook: null })
+            }
+          >
+            Changer de grimoire
+          </button>
+        </div>
       ) : (
         <form
           onSubmit={(e) => {

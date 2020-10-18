@@ -38,6 +38,7 @@ function SpellSearchResults({ search }: SpellSearchResultsProps) {
     return <p>No Spells... :(</p>;
   return (
     <div>
+      <h2>Ajouter un sort:</h2>
       {data.getSpells.map(({ id, name }) => (
         <div key={id}>
           <p>
@@ -47,6 +48,7 @@ function SpellSearchResults({ search }: SpellSearchResultsProps) {
               autoEscape
               textToHighlight={name}
             />
+            <button type="button">Ajouter</button>
           </p>
         </div>
       ))}
@@ -60,6 +62,7 @@ function SpellSearch() {
     <div>
       <form>
         <input
+          placeholder="Cherchez un sort"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
