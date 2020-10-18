@@ -31,17 +31,22 @@ function SpellBooks() {
   if (!data) return <p>No Spellbooks... :(</p>;
   return (
     <div>
-      {data.allSpellbooks.map(({ id, name }) => (
+      {data.allSpellbooks.map(({ id, name, spells }) => (
         <div key={id}>
           <p>
             {name}
             <button
               type="submit"
               onClick={() =>
-                dispatch && dispatch({ type: 'SELECT_SPELLBOOK', id })
+                dispatch &&
+                dispatch({
+                  type: 'SELECT_SPELLBOOK',
+                  spellbook: { id, name, spells },
+                })
               }
             >
-              {appState?.selectedBookId !== id
+              {appState?.selectedSpellbook &&
+              appState.selectedSpellbook.id !== id
                 ? 'Selectioner'
                 : 'Déselectioner'}
             </button>

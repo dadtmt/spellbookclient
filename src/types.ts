@@ -1,10 +1,10 @@
 export type AppState = {
-  selectedBookId: string | boolean;
+  selectedSpellbook: Spellbook | null;
 };
 
 export type Action = {
   type: 'SELECT_SPELLBOOK';
-  id: string;
+  spellbook: Spellbook;
 };
 
 export type Spell = {

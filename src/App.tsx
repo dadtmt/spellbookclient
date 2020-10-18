@@ -1,12 +1,13 @@
 import React, { useReducer } from 'react';
 import './App.css';
 import AppContext from './AppContext';
+import AddSpellbook from './AddSpellbook';
 import SpellBooks from './SpellBooks';
 import SpellSearch from './SpellSearch';
 import { AppState, Action } from './types';
 
 const initialState = {
-  selectedBookId: false,
+  selectedSpellbook: null,
 };
 
 function appReducer(state: AppState, action: Action): AppState {
@@ -14,7 +15,7 @@ function appReducer(state: AppState, action: Action): AppState {
     case 'SELECT_SPELLBOOK':
       return {
         ...state,
-        selectedBookId: !state.selectedBookId && action.id,
+        selectedSpellbook: action.spellbook,
       };
     default:
       return state;
@@ -26,6 +27,7 @@ function App() {
   return (
     <div className="App">
       <AppContext.Provider value={[state, dispatch]}>
+        <AddSpellbook />
         <SpellSearch />
         <SpellBooks />
       </AppContext.Provider>
