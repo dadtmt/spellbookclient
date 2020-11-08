@@ -27,7 +27,11 @@ type AddSpellToBookVars = {
   };
 };
 
-type SpellSelectorProps = { search: string; spell: Spell };
+type SpellSelectorProps = {
+  search: string;
+  spell: Spell;
+  notUniqueName: boolean;
+};
 
 const isInSpellbook = (
   spell: Spell,
@@ -36,7 +40,11 @@ const isInSpellbook = (
   spellbook &&
   spellbook.spells.find((spellInBook) => spell.id === spellInBook.id);
 
-function SpellSelector({ search, spell }: SpellSelectorProps) {
+function SpellSelector({
+  search,
+  spell,
+  notUniqueName,
+}: SpellSelectorProps) {
   const [state, dispatch] = useContext(AppContext);
   const { id, name } = spell;
   const [addSpellToBook, { error, data }] = useMutation<
@@ -77,9 +85,6 @@ function SpellSelector({ search, spell }: SpellSelectorProps) {
   return (
     <div key={id}>
       {error ? <p>Error: {error.message}</p> : null}
-      {data && data.addSpellToBook ? (
-        <p>Grimoire {data.addSpellToBook.name} modifié!</p>
-      ) : null}
       <p>
         <Highlighter
           highlightClassName="YourHighlightClass"
@@ -87,6 +92,7 @@ function SpellSelector({ search, spell }: SpellSelectorProps) {
           autoEscape
           textToHighlight={name}
         />
+        {notUniqueName && ` (${spell.reference.supplement})`}
         {isInSpellbook(spell, state?.selectedSpellbook) ? (
           <button type="button" onClick={() => removeSpellFromBook()}>
             Retirer

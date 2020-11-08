@@ -60,6 +60,11 @@ module.exports = {
           descriptors: [String]
         }
         
+        type Reference {
+          supplement: String!
+          page: String
+        }
+        
         type Spell {
           id: Int!
           name: String!
@@ -74,6 +79,7 @@ module.exports = {
           spellResistance: String
           reqLevel: [ReqLevel]
           schoolData: SchoolData!
+          reference: Reference!
         }
         
         type Spellbook {

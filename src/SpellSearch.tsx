@@ -19,6 +19,9 @@ const GET_SPELLS = gql`
       name
       description
       components
+      reference {
+        supplement
+      }
     }
   }
 `;
@@ -36,11 +39,24 @@ function SpellSearchResults({ search }: SpellSearchResultsProps) {
   if (error) return <p>Error : {error.message}</p>;
   if (!data || data?.getSpells.length === 0)
     return <p>No Spells... :(</p>;
+  const spellsWithNotUniqueName = data.getSpells.map(
+    (spell, i, arr) => ({
+      spell,
+      notUniqueName:
+        arr.filter((anotherSpell) => spell.name === anotherSpell.name)
+          .length > 1,
+    }),
+  );
   return (
     <div>
       <h2>Ajouter un sort:</h2>
-      {data.getSpells.map((spell) => (
-        <SpellSelector key={spell.id} spell={spell} search={search} />
+      {spellsWithNotUniqueName.map(({ spell, notUniqueName }) => (
+        <SpellSelector
+          key={spell.id}
+          spell={spell}
+          search={search}
+          notUniqueName={notUniqueName}
+        />
       ))}
     </div>
   );

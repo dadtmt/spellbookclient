@@ -29,6 +29,7 @@ export type Spell = {
     subSchool?: string;
     descriptors: string[];
   };
+  reference: { supplement: string; page?: string };
 };
 
 export type Spellbook = {
