@@ -1,11 +1,9 @@
 export type AppState = {
   selectedSpellbook: Spellbook | null;
   spellbookView: string;
-  spellbooks: Spellbook[];
 };
 
 export type Action =
-  | { type: 'FETCHED_ALL_SPELLBOOKS'; spellbooks: Spellbook[] }
   | {
       type: 'SELECT_SPELLBOOK';
       spellbook: Spellbook | null;

@@ -1,5 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
+import { ALL_SPELLBOOKS } from './graphql/queries';
 import AppContext from './AppContext';
 import { Spellbook } from './types';
 
@@ -26,6 +27,7 @@ function AddSpellbook() {
     AddSpellbookVars
   >(ADD_SPELLBOOK, {
     variables: { input: { name } },
+    refetchQueries: [{ query: ALL_SPELLBOOKS }],
   });
   useEffect(() => {
     if (data?.addSpellbook && dispatch)
@@ -35,6 +37,7 @@ function AddSpellbook() {
         spellbookView: 'MODIFY',
       });
   }, [data, dispatch]);
+
   return (
     <div>
       {error ? <p>Error: {error.message}</p> : null}
