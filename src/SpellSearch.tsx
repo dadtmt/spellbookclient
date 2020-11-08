@@ -9,12 +9,12 @@ type GetSpellsData = {
 };
 
 type GetSpellsVars = {
-  name: string;
+  searchInName: string;
 };
 
 const GET_SPELLS = gql`
-  query GetSpells($name: String!) {
-    getSpells(name: $name) {
+  query GetSpells($searchInName: String!) {
+    getSpells(searchInName: $searchInName) {
       id
       name
       description
@@ -31,7 +31,7 @@ function SpellSearchResults({ search }: SpellSearchResultsProps) {
   const { loading, error, data } = useQuery<
     GetSpellsData,
     GetSpellsVars
-  >(GET_SPELLS, { variables: { name: search } });
+  >(GET_SPELLS, { variables: { searchInName: search } });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
   if (!data || data?.getSpells.length === 0)

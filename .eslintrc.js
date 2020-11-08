@@ -49,27 +49,37 @@ module.exports = {
         // schemaJsonFilepath: path.resolve(__dirname, './schema.json'),
   
         // OR provide the schema in the Schema Language format
-        schemaString: `type Spell {
+        schemaString: `type ReqLevel {
+          classe: String!
+          level: String!
+        }
+        
+        type SchoolData {
+          school: String!
+          subSchool: String
+          descriptors: [String]
+        }
+        
+        type Spell {
           id: Int!
           name: String!
           description: String!
+          castingTime: String!
+          components: String!
+          url: String!
           range: String
-          components: String
           duration: String
-          castingTime: String
           target: String
-          spellResistance: String
           savingThrow: String
+          spellResistance: String
+          reqLevel: [ReqLevel]
+          schoolData: SchoolData!
         }
         
         type Spellbook {
           id: String!
           name: String!
           spells: [Spell]
-        }
-        
-        input InputSpell {
-          name: String
         }
         
         input InputSpellbook {
@@ -86,7 +96,7 @@ module.exports = {
         }
         
         type Query {
-          getSpells(name: String): [Spell]
+          getSpells(searchInName: String): [Spell]
           allSpellbooks: [Spellbook!]
         }
         

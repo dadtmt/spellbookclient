@@ -19,11 +19,18 @@ export type Spell = {
   description: string;
   castingTime: string;
   components: string;
-  range: string;
-  duration: string;
-  target: string;
-  savingThrow: string;
-  spellResistance: string;
+  range?: string;
+  duration?: string;
+  target?: string;
+  savingThrow?: string;
+  spellResistance?: string;
+  url: string;
+  reqLevel: { classe: string; level: string };
+  schoolData: {
+    school: string;
+    subSchool?: string;
+    descriptors: string[];
+  };
 };
 
 export type Spellbook = {
