@@ -6,6 +6,7 @@ function Spellbook() {
   const [state] = useContext(AppContext);
   const isThereSpells =
     state?.selectedSpellbook &&
+    state?.selectedSpellbook?.spells &&
     state?.selectedSpellbook?.spells.length > 0;
 
   return (
