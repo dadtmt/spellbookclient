@@ -23,7 +23,7 @@ export type Spell = {
   savingThrow?: string;
   spellResistance?: string;
   url: string;
-  reqLevel: { classe: string; level: string };
+  reqLevel: { classe: string; level: string }[];
   schoolData: {
     school: string;
     subSchool?: string;

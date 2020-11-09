@@ -1,24 +1,11 @@
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import React, { useContext, useEffect } from 'react';
 import Highlighter from 'react-highlight-words';
 import AppContext from './AppContext';
+import { ADD_SPELL_TO_BOOK } from './graphql/queries';
 import useRemoveSpellFromBook from './hooks/useRemoveSpellFromBook';
 
 import { Spell, Spellbook } from './types';
-
-const ADD_SPELL_TO_BOOK = gql`
-  mutation addSpellToBook($input: InputSpellToBook!) {
-    addSpellToBook(input: $input) {
-      id
-      name
-      spells {
-        id
-        name
-        description
-      }
-    }
-  }
-`;
 
 type AddSpellToBookVars = {
   input: {
@@ -38,6 +25,7 @@ const isInSpellbook = (
   spellbook: Spellbook | null | undefined,
 ) =>
   spellbook &&
+  spellbook.spells &&
   spellbook.spells.find((spellInBook) => spell.id === spellInBook.id);
 
 function SpellSelector({
