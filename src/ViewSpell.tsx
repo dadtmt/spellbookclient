@@ -24,15 +24,56 @@ function ViewSpell({ spell }: ViewSpellProps) {
       });
   }, [data, dispatch]);
 
+  const {
+    name,
+    description,
+    schoolData: { school, subSchool, descriptors },
+    reqLevel,
+    url,
+    id,
+    ...rest
+  } = spell;
+
   return (
-    <div>
+    <article>
       {error && <p>Error: {error.message}</p>}
-      <h3>{spell.name}</h3>
-      <p>{spell.description}</p>
+      <h3>{name}</h3>
+      <p>{description}</p>
+      <dl>
+        <dt>School: {school}</dt>
+        {subSchool && <dd>Subschool: {subSchool}</dd>}
+        {descriptors.length > 0 && (
+          <dd>Descriptors: {descriptors.join(',')}</dd>
+        )}
+      </dl>
+      <dl>
+        <dt>Required levels: </dt>
+        {reqLevel.map(({ classe, level }) => (
+          <dd key={classe}>
+            {classe}: {level}
+          </dd>
+        ))}
+      </dl>
+      <ul>
+        {Object.entries(rest).map(
+          ([key, value]) =>
+            key !== '__typename' &&
+            value && (
+              <li key={key}>
+                {key}: {value}
+              </li>
+            ),
+        )}
+        <li>
+          <a href={url} target="_blank" rel="noopener noreferrer">
+            source
+          </a>
+        </li>
+      </ul>
       <button type="button" onClick={() => removeSpellFromBook()}>
         Retirer
       </button>
-    </div>
+    </article>
   );
 }
 
