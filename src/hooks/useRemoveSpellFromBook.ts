@@ -10,6 +10,24 @@ const REMOVE_SPELL_FROM_BOOK = gql`
         id
         name
         description
+        area
+        castingtime
+        components
+        range
+        duration
+        target
+        savingThrow
+        spellResistance
+        url
+        reqLevel {
+          classe
+          level
+        }
+        schoolData {
+          school
+          subSchool
+          descriptors
+        }
       }
     }
   }

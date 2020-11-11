@@ -69,9 +69,10 @@ module.exports = {
           id: Int!
           name: String!
           description: String!
-          castingTime: String!
           components: String!
           url: String!
+          area: String
+          castingtime: String
           range: String
           duration: String
           target: String
@@ -110,7 +111,7 @@ module.exports = {
           addSpellbook(input: InputSpellbook!): Spellbook!
           addSpellToBook(input: InputSpellToBook): Spellbook!
           removeSpellFromBook(input: InputSpellToBook): Spellbook!
-        }
+        }        
         `,
   
         // tagName is gql by default

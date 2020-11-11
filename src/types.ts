@@ -15,8 +15,9 @@ export type Spell = {
   id: number;
   name: string;
   description: string;
-  castingTime: string;
   components: string;
+  area?: string;
+  castingtime?: string;
   range?: string;
   duration?: string;
   target?: string;

@@ -9,7 +9,8 @@ export const ALL_SPELLBOOKS = gql`
         id
         name
         description
-        castingTime
+        area
+        castingtime
         components
         range
         duration
@@ -40,7 +41,8 @@ export const ADD_SPELL_TO_BOOK = gql`
         id
         name
         description
-        castingTime
+        area
+        castingtime
         components
         range
         duration
