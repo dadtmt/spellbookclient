@@ -8,6 +8,7 @@ import SpellSearch from './SpellSearch';
 import { AppState, Action, Spellbook } from './types';
 import ViewSpellbook from './Spellbook';
 import { ALL_SPELLBOOKS } from './graphql/queries';
+import MainContainer from './styles/MainContainer';
 
 const initialState: AppState = {
   selectedSpellbook: null,
@@ -46,7 +47,7 @@ function App() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
   return (
-    <div className="App">
+    <MainContainer>
       <AppContext.Provider value={[state, dispatch]}>
         <AddSpellbook />
 
@@ -65,7 +66,7 @@ function App() {
           />
         )}
       </AppContext.Provider>
-    </div>
+    </MainContainer>
   );
 }
 

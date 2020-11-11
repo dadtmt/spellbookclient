@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import AppContext from './AppContext';
 import useRemoveSpellFromBook from './hooks/useRemoveSpellFromBook';
+import StyledSpell from './styles/StyledSpell';
 import { Spell } from './types';
 
 type ViewSpellProps = {
@@ -35,7 +36,7 @@ function ViewSpell({ spell }: ViewSpellProps) {
   } = spell;
 
   return (
-    <article>
+    <StyledSpell>
       {error && <p>Error: {error.message}</p>}
       <h3>{name}</h3>
       <p>{description}</p>
@@ -73,7 +74,7 @@ function ViewSpell({ spell }: ViewSpellProps) {
       <button type="button" onClick={() => removeSpellFromBook()}>
         Retirer
       </button>
-    </article>
+    </StyledSpell>
   );
 }
 
